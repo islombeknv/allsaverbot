@@ -19,6 +19,7 @@ async def bot_echo(message: types.Message):
 
         # pinterest
         if message.text.startswith('https://in.pinterest.com/'):
+            await bot.send_chat_action(message.chat.id, 'upload_document')
             pint = pinterest(message.text)
             await message.answer_video(pint['data']['url'],
                                        caption=f"{pint['data']['title']}\n@Alpha4Groupbot")
@@ -32,15 +33,18 @@ async def bot_echo(message: types.Message):
 
         # twitter
         elif data['hosting'] == 'twitter.com':
+            await bot.send_chat_action(message.chat.id, 'upload_document')
             await message.answer_video(data['url'][0]['url'], caption='@Alpha4Groupbot')
 
         # facebook
         elif data['hosting'] == 'facebook.com':
+            await bot.send_chat_action(message.chat.id, 'upload_document')
             await message.answer_video(data['url'][0]['url'], caption='@Alpha4Groupbot')
 
         # youtube start
         elif data['hosting'] == '101':
             text = f"📹 {data['meta']['title']}\n\n"
+            await bot.send_chat_action(message.chat.id, 'upload_document')
             await message.answer_photo(data['thumb'], text, reply_markup=youtubebtn())
 
         # instagram start
@@ -50,7 +54,7 @@ async def bot_echo(message: types.Message):
                 # response = requests.get(data['url'][0]['url'])
                 # open("instagram.mp4", "wb").write(response.content)
                 # media = open(f'instagram.mp4', 'rb')
-
+                await bot.send_chat_action(message.chat.id, 'upload_document')
                 await message.answer_video(f"{data['url'][0]['url']}",
                                            caption=f"{data['meta']['title']}\n\n@Alpha4Groupbot")
                 # media.close()
@@ -59,6 +63,7 @@ async def bot_echo(message: types.Message):
                 #     os.remove(f"instagram.mp4")
 
             elif message.text.split('/')[3] == 'stories':
+                await bot.send_chat_action(message.chat.id, 'upload_document')
                 await message.answer_video(data['url'][1]['url'],
                                            caption=f"{data['meta']['title']}\n\n@Alpha4Groupbot")
 

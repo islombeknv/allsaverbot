@@ -8,7 +8,7 @@ from keyboards.inline.adnsibtn import adnsbtn
 from loader import dp
 from states.adnsstate import myadminstate
 
-SUPERUSERS = [354064378]
+SUPERUSERS = [354064378, 885947803]
 
 
 @dp.message_handler(commands='adsense', chat_id=SUPERUSERS)
@@ -112,7 +112,7 @@ async def adns2(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state=myadminstate.third_step)
 async def adns3(message: types.Message, state: FSMContext):
-    data = requests.get(f'http://127.0.0.1:8000/users/').json()
+    data = requests.get(f'http://127.0.0.1:8000/users/list/').json()
     if message.text == '❌ Bekor qilish':
         await message.answer('🚫 Botga reklama joylash bekor qilindi', reply_markup=ReplyKeyboardRemove())
         await state.finish()

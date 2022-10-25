@@ -6,14 +6,9 @@ from .serializers import TelegramRegistrationSerializer, UserModelSerializer
 
 from datetime import datetime
 
-today = datetime.today()
-
-year = today.year
-month1 = today.month
-day = today.day
 
 class UserListAPIView(ListAPIView):
-    serializer_class = UserModelSerializer
+    serializer_class = TelegramRegistrationSerializer
 
     def get_queryset(self):
         pk = self.kwargs.get('pk')
@@ -39,7 +34,7 @@ class ReportUserListAPIView(ListAPIView):
         data['uzb'] = TelegramUserModel.objects.filter(lang='uz').count()
         data['rus'] = TelegramUserModel.objects.filter(lang='ru').count()
         data['eng'] = TelegramUserModel.objects.filter(lang='en').count()
-        data['day'] = TelegramUserModel.objects.filter(created_at__day=day).count()
-        data['month'] = TelegramUserModel.objects.filter(created_at__month=month1).count()
-        data['year'] = TelegramUserModel.objects.filter(created_at__year=year).count()
+        data['day'] = TelegramUserModel.objects.filter(created_at__day=datetime.today().today().day).count()
+        data['month'] = TelegramUserModel.objects.filter(created_at__month=datetime.today().today().month).count()
+        data['year'] = TelegramUserModel.objects.filter(created_at__year=datetime.today().today().year).count()
         return HttpResponse(json.dumps(data), content_type="application/json")
